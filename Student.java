@@ -9,11 +9,6 @@ public class Student {
     private Date birthdate;
     private ArrayList<Course> courseList;
 
-    public Student() {
-        this.name = "Default Student";
-        this.id = "s001";
-    }
-
     public Student(String id, String name, Date birthdate) {
         super();
         this.id = id;

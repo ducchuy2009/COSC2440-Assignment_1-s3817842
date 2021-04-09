@@ -1,18 +1,28 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class EnrolmentManager  {
-    List<StudentEnrolment> studentEnrolmentList = new ArrayList<>();
-    List<String> studentList = new ArrayList<>();
-    List<String> coursesList = new ArrayList<>();
+    private ArrayList<Student> studentList;
+    private ArrayList<Course> coursesList;
+    private ArrayList<StudentEnrolment> studentEnrolmentList;
 
     public EnrolmentManager() {
+        studentList = new ArrayList<>();
+        coursesList = new ArrayList<>();
+        studentEnrolmentList = new ArrayList<>();
     }
 
-    public boolean add (StudentEnrolment se) {
+    public void addStudent(Student s){
+        studentList.add(s);
+    }
+
+    public void addCourse(Course c){
+        coursesList.add(c);
+    }
+
+    public boolean add(StudentEnrolment se) {
         if (studentEnrolmentList.contains(se)) {
             return false;
         }
@@ -57,9 +67,7 @@ public class EnrolmentManager  {
         }
     }
 
-    public void displayStudentEnrolment() {
-        for (StudentEnrolment se: studentEnrolmentList) {
-            System.out.println("Student: " + se.getStudent() + ", Course: " + se.getCourse() + ", Semester: " + se.getSemester());
-        }
+    public void getAll() {
+
     }
 }

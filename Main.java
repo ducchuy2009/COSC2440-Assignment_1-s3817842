@@ -32,17 +32,18 @@ public class Main {
                     se.Enroll(se);
 
                 case 2:
+                    
 
                 case 3:
-                    enrolment.displayStudentEnrolment();
-                    System.out.println("-------------------");
+                    enrolment.getAll();
+                    System.out.println("----------------------------------------------");
                     System.out.println("1. View all courses of a student in a semester");
                     System.out.println("2. View all students in a course in a semester");
                     System.out.println("3. View all course offered in a semester");
                     System.out.println("4. Back");
                     System.out.println("Enter your option: ");
                     opt1 = inp.nextInt();
-                    System.out.println("-------------------");
+                    System.out.println("----------------------------------------------");
                     enrolment.getOne(opt1);
                     
                 case 4:
