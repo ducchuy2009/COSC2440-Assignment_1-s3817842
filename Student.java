@@ -7,14 +7,12 @@ public class Student {
     private String id;
     private String name;
     private Date birthdate;
-    private ArrayList<Course> courseList;
 
     public Student(String id, String name, Date birthdate) {
         super();
         this.id = id;
         this.name = name;
         this.birthdate = birthdate;
-        courseList = new ArrayList<Course>();
     }
 
     public String getId() {
@@ -29,17 +27,12 @@ public class Student {
         return birthdate;
     }
 
-    public ArrayList<Course> getCourseList() {
-        return courseList;
-    }
-
     @Override
     public String toString() {
         return "Student{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", birthdate=" + birthdate +
-                ", courseList=" + courseList +
                 '}';
     }
 }

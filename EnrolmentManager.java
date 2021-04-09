@@ -30,14 +30,22 @@ public class EnrolmentManager  {
         return true;
     }
 
-    public void getOne(int option) {
+    public void update() {
+        System.out.println("ok");
+    }
+
+    public void delete(){
+        System.out.println("ok");
+    }
+
+    public void view(String option) {
         Scanner input = new Scanner(System.in);
-        String studentID, courseID, semester;
+        String studentID, courseID, semester, opt;
         switch (option) {
-            case 1:
+            case "1":
                 System.out.println("Enter a Student ID: ");
                 studentID = input.nextLine();
-                System.out.println("Enter a Semester");
+                System.out.println("Enter a Semester: ");
                 semester = input.nextLine();
                 for (StudentEnrolment se: studentEnrolmentList) {
                     if ((se.getStudent().equals(studentID)) && (se.getSemester().equals(semester))) {
@@ -45,10 +53,10 @@ public class EnrolmentManager  {
                     }
                 }
 
-            case 2:
+            case "2":
                 System.out.println("Enter a Course ID: ");
                 courseID = input.nextLine();
-                System.out.println("Enter a Semester");
+                System.out.println("Enter a Semester: ");
                 semester = input.nextLine();
                 for (StudentEnrolment se: studentEnrolmentList) {
                     if ((se.getCourse().equals(courseID)) && (se.getSemester().equals(semester))) {
@@ -56,18 +64,64 @@ public class EnrolmentManager  {
                     }
                 }
 
-            case 3:
-                System.out.println("Enter a Semester");
+            case "3":
+                System.out.println("Enter a Semester: ");
                 semester = input.nextLine();
                 for (StudentEnrolment se: studentEnrolmentList) {
                     if  (se.getSemester().equals(semester)) {
                         System.out.print(se.getCourse() + ", ");
                     }
                 }
+
+            case "4":
+                System.out.println("1. View all enrolments");
+                System.out.println("2. View all students");
+                System.out.println("3. View all courses");
+                System.out.println("4. View all information");
+                System.out.println("5. Back");
+                System.out.println("Enter your option:");
+                opt = input.nextLine();
+                getAll(opt);
         }
     }
 
-    public void getAll() {
+    public void getAll(String opt) {
+        switch (opt) {
+            case "1":
+                for (StudentEnrolment enrolment : studentEnrolmentList) {
+                    System.out.println(enrolment);
+                }
 
+            case "2":
+                for (Student s : studentList) {
+                    System.out.println(s);
+                }
+
+            case "3":
+                for (Course c : coursesList) {
+                    System.out.println(c);
+                }
+
+            case "4":
+                for (StudentEnrolment enrolment : studentEnrolmentList) {
+                    System.out.println(enrolment);
+                }
+                for (Student s : studentList) {
+                    System.out.println(s);
+                }
+                for (Course c : coursesList) {
+                    System.out.println(c);
+                }
+        }
+    }
+
+    public int displayCourse(String studentID) {
+        int enrolmentID = 0;
+        for (StudentEnrolment se: studentEnrolmentList) {
+            if (se.getStudent().equals(studentID)) {
+                enrolmentID++;
+                System.out.println(enrolmentID + "  " + se.getCourse());
+            }
+        }
     }
 }

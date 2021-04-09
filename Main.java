@@ -1,14 +1,12 @@
 package com.company;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner inp = new Scanner(System.in);
-        int opt, opt1;
-        String sID, cID, sem;
+        String sID, cID, sem, opt, opt1, opt2;
         EnrolmentManager enrolment = new EnrolmentManager();
         do {
             System.out.println("-------------------");
@@ -17,11 +15,11 @@ public class Main {
             System.out.println("3. View");
             System.out.println("4. Exit");
             System.out.println("Enter your option: ");
-            opt = inp.nextInt();
+            opt = inp.nextLine();
             System.out.println("-------------------");
 
             switch (opt) {
-                case 1:
+                case "1":
                     System.out.println("Enter a Student ID: ");
                     sID = inp.nextLine();
                     System.out.println("Enter a Course ID: ");
@@ -31,24 +29,38 @@ public class Main {
                     StudentEnrolment se = new StudentEnrolment(sID, cID, sem);
                     se.Enroll(se);
 
-                case 2:
-                    
+                case "2":
+                    System.out.println("Enter a Student ID");
+                    sID = inp.nextLine();
+                    enrolment.displayCourse(sID);
+                    System.out.println("1. Add a new course");
+                    System.out.println("2. Delete a enrolment");
+                    System.out.println("3. Back");
+                    System.out.println("Enter your option: ");
+                    opt1 = inp.nextLine();
+                    switch (opt1) {
+                        case "1":
+                            enrolment.update();
+                        case "2":
+                            enrolment.delete();
+                    }
 
-                case 3:
-                    enrolment.getAll();
+                case "3":
+                    enrolment.getAll("4");
                     System.out.println("----------------------------------------------");
                     System.out.println("1. View all courses of a student in a semester");
                     System.out.println("2. View all students in a course in a semester");
                     System.out.println("3. View all course offered in a semester");
-                    System.out.println("4. Back");
+                    System.out.println("4. View all enrolments/ students/ courses");
+                    System.out.println("5. Back");
                     System.out.println("Enter your option: ");
-                    opt1 = inp.nextInt();
+                    opt2 = inp.nextLine();
                     System.out.println("----------------------------------------------");
-                    enrolment.getOne(opt1);
+                    enrolment.view(opt2);
                     
-                case 4:
+                case "4":
                     break;
             }
-        } while (opt != 4);
+        } while (!opt.equals("5"));
     }
 }
