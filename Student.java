@@ -5,9 +5,9 @@ import java.util.Date;
 public class Student {
     private String id;
     private String name;
-    private Date birthdate;
+    private String birthdate;
 
-    public Student(String id, String name, Date birthdate) {
+    public Student(String id, String name, String birthdate) {
         super();
         this.id = id;
         this.name = name;
@@ -22,7 +22,7 @@ public class Student {
         return name;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
