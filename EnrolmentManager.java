@@ -14,11 +14,11 @@ public class EnrolmentManager  {
         studentEnrolmentList = new ArrayList<>();
     }
 
-    public void addStudent(Student s){
+    public void addStudent(String fileName){
         studentList.add(s);
     }
 
-    public void addCourse(Course c){
+    public void addCourse(String fileName){
         coursesList.add(c);
     }
 
@@ -115,7 +115,7 @@ public class EnrolmentManager  {
         }
     }
 
-    public int displayCourse(String studentID) {
+    public void displayCourse(String studentID) {
         int enrolmentID = 0;
         for (StudentEnrolment se: studentEnrolmentList) {
             if (se.getStudent().equals(studentID)) {

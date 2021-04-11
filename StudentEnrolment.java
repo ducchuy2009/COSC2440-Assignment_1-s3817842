@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.ArrayList;
-
 public class StudentEnrolment {
     private String student;
     private String course;
@@ -12,9 +10,6 @@ public class StudentEnrolment {
         this.student = student;
         this.course = course;
         this.semester = semester;
-    }
-
-    public StudentEnrolment() {
     }
 
     public String getStudent() {
@@ -29,7 +24,7 @@ public class StudentEnrolment {
         return semester;
     }
 
-    public void Enroll(StudentEnrolment enrolment) {
+    public void enroll(StudentEnrolment enrolment) {
         EnrolmentManager em = new EnrolmentManager();
         if (em.add(enrolment)) {
             System.out.println("Enroll Successfully!");
@@ -38,7 +33,6 @@ public class StudentEnrolment {
             System.out.println("Already is there!");
         }
     }
-
 }
 
 

@@ -8,6 +8,10 @@ public class Main {
         Scanner inp = new Scanner(System.in);
         String sID, cID, sem, opt, opt1, opt2;
         EnrolmentManager enrolment = new EnrolmentManager();
+
+        enrolment.addStudent("student.csv");
+        enrolment.addCourse("course.csv");
+
         do {
             System.out.println("-------------------");
             System.out.println("1. Enroll");
@@ -26,8 +30,8 @@ public class Main {
                     cID = inp.nextLine();
                     System.out.println("Enter a Semester: ");
                     sem = inp.nextLine();
-                    StudentEnrolment se = new StudentEnrolment(sID, cID, sem);
-                    se.Enroll(se);
+                    StudentEnrolment se = new StudentEnrolment (sID, cID, sem);
+                    se.enroll(se);
 
                 case "2":
                     System.out.println("Enter a Student ID");
