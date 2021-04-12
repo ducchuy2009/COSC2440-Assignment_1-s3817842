@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class EnrolmentManager  {
+public class EnrolmentManager implements StudentEnrolmentManager{
     private List<Student> studentList;
     private List<Course> coursesList;
     private List<StudentEnrolment> studentEnrolmentList;

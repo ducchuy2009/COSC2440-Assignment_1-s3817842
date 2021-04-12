@@ -1,9 +1,9 @@
 package com.company;
 
 public interface StudentEnrolmentManager {
-    public void add();
-    public void update();
-    public void delete();
-    public void getOne();
-    public void getAll();
+    boolean add(StudentEnrolment se);
+    void update(Student s, Course c, String sem);
+    void delete(StudentEnrolment enrolment);
+    StudentEnrolment getOne(int limitSize, String studentID);
+    void getAll(String opt);
 }
