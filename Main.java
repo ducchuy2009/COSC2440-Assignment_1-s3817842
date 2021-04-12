@@ -18,17 +18,22 @@ public class Main {
         if (enrolment.importFile("C:\\Users\\LENOVO\\IdeaProjects\\Assignment_1\\src\\com\\company\\StudentEnrolmentSystem.csv")) {
 
             do {
-                System.out.println("----------------------------------------------");
-                System.out.println("1. Enroll");
-                System.out.println("2. Update");
-                System.out.println("3. View");
-                System.out.println("4. Exit");
-                System.out.print("Enter your option: ");
-                opt = inp.nextLine();
-                int temp = Integer.parseInt(opt);
-                System.out.println("----------------------------------------------");
+                do {
+                    System.out.println("----------------------------------------------");
+                    System.out.println("1. Enroll");
+                    System.out.println("2. Update");
+                    System.out.println("3. View");
+                    System.out.println("4. Exit");
+                    System.out.print("Enter your option: ");
+                    opt = inp.nextLine();
+                    System.out.println("----------------------------------------------");
+                } while ((!opt.equals("1"))
+                        && (!opt.equals("2"))
+                        && (!opt.equals("3"))
+                        && (!opt.equals("4")));
 
-                if ((temp >= 1) && (temp <= 4)) {
+                if ((Integer.parseInt(opt) >= 1)
+                        && (Integer.parseInt(opt) <= 4)) {
                     switch (opt) {
                         case "1":
                             do {
@@ -42,7 +47,7 @@ public class Main {
                             do {
                                 System.out.println("----------------------------------------------");
                                 System.out.print("Enter a Course ID: ");
-                                cID = inp.nextLine();
+                                cID = inp.nextLine().toUpperCase();
                                 c = enrolment.isCourseValid(cID);
                                 System.out.println("----------------------------------------------");
                             } while (c == null);
@@ -50,7 +55,7 @@ public class Main {
                             do {
                                 System.out.println("----------------------------------------------");
                                 System.out.print("Enter a Semester: ");
-                                sem = inp.nextLine();
+                                sem = inp.nextLine().toUpperCase();
                                 System.out.println("----------------------------------------------");
                             } while (!Pattern.matches(String.valueOf(regex), sem));
 
@@ -67,12 +72,13 @@ public class Main {
                             do {
                                 System.out.println("----------------------------------------------");
                                 System.out.print("Enter a Student ID: ");
-                                sID = inp.nextLine();
+                                sID = inp.nextLine().toUpperCase();
                                 s = enrolment.isStudentValid(sID);
                                 System.out.println("----------------------------------------------");
                             } while (s == null);
 
-                            enrolment.displayCourse(sID);
+                            System.out.println(s.getName() + "'s Course List: ");
+                            int noCourse = enrolment.displayCourseOfStudent(sID);
 
                             do {
                                 System.out.println("----------------------------------------------");
@@ -82,14 +88,33 @@ public class Main {
                                 System.out.print("Enter your option: ");
                                 opt1 = inp.nextLine();
                                 System.out.println("----------------------------------------------");
-                            } while ((Integer.parseInt(opt1) <= 1)
-                                    && (Integer.parseInt(opt1) >= 2));
+                            } while (!opt1.equals("1")
+                                    && (!opt1.equals("2"))
+                                    && (!opt1.equals("3")));
 
                             switch (opt1) {
                                 case "1":
-                                    enrolment.update();
+                                    do {
+                                        System.out.println("----------------------------------------------");
+                                        System.out.print("Enter a Course ID: ");
+                                        cID = inp.nextLine().toUpperCase();
+                                        c = enrolment.isCourseValid(cID);
+                                        System.out.println("----------------------------------------------");
+                                    } while (c == null);
+
+                                    do {
+                                        System.out.println("----------------------------------------------");
+                                        System.out.print("Enter a Semester: ");
+                                        sem = inp.nextLine().toUpperCase();
+                                        System.out.println("----------------------------------------------");
+                                    } while (!Pattern.matches(String.valueOf(regex), sem));
+
+                                    enrolment.update(s, c, sem);
+                                    break;
+
                                 case "2":
-                                    enrolment.delete();
+                                    enrolment.delete(enrolment.getOne(noCourse, sID));
+                                    break;
                             }
                             break;
 
@@ -104,7 +129,11 @@ public class Main {
                                 System.out.print("Enter your option: ");
                                 opt2 = inp.nextLine();
                                 System.out.println("----------------------------------------------");
-                            } while ((Integer.parseInt(opt2) <= 1) && (Integer.parseInt(opt2) >= 4));
+                            } while (!opt2.equals("1")
+                                    && !opt2.equals("2")
+                                    && !opt2.equals("3")
+                                    && !opt2.equals("4")
+                                    && !opt2.equals("5"));
 
                             enrolment.view(opt2);
                             break;

@@ -1,7 +1,5 @@
 package com.company;
 
-import java.text.ParseException;
-
 public class StudentEnrolment {
     private Student student;
     private Course course;
@@ -26,7 +24,7 @@ public class StudentEnrolment {
         return semester;
     }
 
-    public static StudentEnrolment parseCsv(String enrolmentInfo) throws ParseException {
+    public static StudentEnrolment parseCsv(String enrolmentInfo) {
         String[] splitInfo = enrolmentInfo.split(",");
         int noCredits = Integer.parseInt(splitInfo[5]);
         Student s = new Student(splitInfo[0], splitInfo[1], splitInfo[2]);
