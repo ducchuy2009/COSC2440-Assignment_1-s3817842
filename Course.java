@@ -23,14 +23,5 @@ public class Course {
     public int getNoCredits() {
         return noCredits;
     }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", noCredits=" + noCredits +
-                '}';
-    }
 }
 

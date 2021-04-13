@@ -18,18 +18,23 @@ public class EnrolmentManager implements StudentEnrolmentManager{
         studentEnrolmentList = new ArrayList<>();
     }
 
-    public boolean importFile(String fileName) {
+    public void importFile(String fileName) throws FileNotFoundException {
+
+        // Declare Variables
         Scanner input;
         List<String> sID = new ArrayList<>();
         List<String> cID = new ArrayList<>();
 
+        // Open File
         try {
             input = new Scanner(new File(fileName));
         } catch (FileNotFoundException e) {
             System.out.println("File does not exist");
-            return false;
+            System.out.println("Run default file");
+            input = new Scanner(new File("C:\\Users\\LENOVO\\IdeaProjects\\Assignment_1\\src\\com\\company\\default.csv"));
         }
 
+        // Import Data from file in the system
         while (input.hasNextLine()) {
             String line = input.nextLine();
             StudentEnrolment se = StudentEnrolment.parseCsv(line);
@@ -45,41 +50,54 @@ public class EnrolmentManager implements StudentEnrolmentManager{
         }
 
         input.close();
-        return true;
     }
 
     public boolean add(StudentEnrolment enrolment) {
         for (StudentEnrolment se : studentEnrolmentList) {
+            // If enrolment is available
             if ((enrolment.getStudent().equals(se.getStudent()))
                     && (enrolment.getCourse().equals(se.getCourse()))) {
                 return false;
             }
         }
+        // Enrolment added if not available
         studentEnrolmentList.add(enrolment);
         return true;
     }
 
-    public void update(Student s, Course c, String sem) {
+    public boolean update(Student s, Course c, String sem) {
+
         StudentEnrolment enrolment = new StudentEnrolment(s, c, sem);
+
+        // Check enrolment is available or not
         if (add(enrolment)) {
-            System.out.println("Successfully Updated!");
+            return true;
         }
-        else System.out.println("Already was there");
+        else return false;
     }
 
     public void delete(StudentEnrolment enrolment){
+        // Delete enrolment based on details
         studentEnrolmentList.remove(enrolment);
         System.out.println("Enrolment deleted successfully");
     }
 
     public void view(String option) {
+
+        // Declare variables
         Scanner input = new Scanner(System.in);
         Student s;
         Course c;
         String studentID, courseID, semester, opt;
         Pattern regex = Pattern.compile("\\d{4}[A-C]$");
+
+        // Check option from users
         switch (option) {
+
+            // Display Course List of a Student in a Semester
             case "1":
+
+                // Enter Student ID
                 do {
                     System.out.println("----------------------------------------------");
                     System.out.print("Enter a Student ID: ");
@@ -88,6 +106,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
                     System.out.println("----------------------------------------------");
                 } while (s == null);
 
+                // Enter Semester
                 do {
                     System.out.println("----------------------------------------------");
                     System.out.print("Enter a Semester: ");
@@ -95,6 +114,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
                     System.out.println("----------------------------------------------");
                 } while (!Pattern.matches(String.valueOf(regex), semester));
 
+                // Display Course List
                 System.out.println("COURSE LIST:");
                 System.out.println("--------------------------------------------------------------");
                 System.out.format("|%-13s|%-32s|%-13s|", "ID", "Name", "No. Credits");
@@ -113,7 +133,10 @@ public class EnrolmentManager implements StudentEnrolmentManager{
                 System.out.println("--------------------------------------------------------------");
                 break;
 
+            // Display Student List in a Course of a Semester
             case "2":
+
+                // Enter Course ID
                 do {
                     System.out.println("----------------------------------------------");
                     System.out.print("Enter a Course ID: ");
@@ -122,6 +145,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
                     System.out.println("----------------------------------------------");
                 } while (c == null);
 
+                // Enter Semester
                 do {
                     System.out.println("----------------------------------------------");
                     System.out.print("Enter a Semester: ");
@@ -129,6 +153,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
                     System.out.println("----------------------------------------------");
                 } while (!Pattern.matches(String.valueOf(regex), semester));
 
+                // Display Student List
                 System.out.println("STUDENT LIST:");
                 System.out.println("--------------------------------------------------------------");
                 System.out.format("|%-13s|%-32s|%-13s|", "ID", "Name", "DOB");
@@ -148,7 +173,10 @@ public class EnrolmentManager implements StudentEnrolmentManager{
 
                 break;
 
+            // Display all Course that offered in a semester
             case "3":
+
+                // Enter a Semester
                 do {
                     System.out.println("----------------------------------------------");
                     System.out.print("Enter a Semester: ");
@@ -156,8 +184,10 @@ public class EnrolmentManager implements StudentEnrolmentManager{
                     System.out.println("----------------------------------------------");
                 } while (!Pattern.matches(String.valueOf(regex), semester));
 
+                // Repeat List is responsible to help the system avoid the duplication
                 List<String> repeat = new ArrayList<>();
 
+                // Display Course List
                 System.out.println("COURSE LIST:");
                 System.out.println("--------------------------------------------------------------");
                 System.out.format("|%-13s|%-32s|%-13s|", "ID", "Name", "No. Credits");
@@ -165,7 +195,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
                 System.out.println("--------------------------------------------------------------");
                 for (StudentEnrolment se: studentEnrolmentList) {
                     if  (se.getSemester().equals(semester)) {
-                        if (!repeat.contains(se.getCourse().getId())) {
+                        if (!repeat.contains(se.getCourse().getId())) { // Check the Course is duplicate or not
                             repeat.add(se.getCourse().getId());
                             System.out.format("|%-13s|%-32s|%-13s|",
                                     se.getCourse().getId(),
@@ -179,6 +209,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
 
                 break;
 
+            // View All
             case "4":
                 do {
                     System.out.println("----------------------------------------------");
@@ -199,9 +230,12 @@ public class EnrolmentManager implements StudentEnrolmentManager{
         }
     }
 
+    // Return the enrolment information based on the entered index
     public StudentEnrolment getOne(int limitSize, String studentID) {
         Scanner input = new Scanner(System.in);
         String index;
+
+        // Choose the index of the enrolment details in the displayed broad (update function)
         do {
             System.out.print("Choose the index that you want to delete: ");
             index = input.nextLine();
@@ -220,8 +254,11 @@ public class EnrolmentManager implements StudentEnrolmentManager{
         return null;
     }
 
+    // Display All Information
     public void getAll(String opt) {
         switch (opt) {
+
+            // Display All Enrolment Details
             case "1":
                 System.out.println("ENROLMENT LIST:");
                 System.out.println("-------------------------------------------");
@@ -238,6 +275,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
                 System.out.println("-------------------------------------------");
                 break;
 
+            // Display All Students' Details
             case "2":
                 System.out.println("STUDENT LIST:");
                 System.out.println("--------------------------------------------------------------");
@@ -254,6 +292,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
                 System.out.println("--------------------------------------------------------------");
                 break;
 
+            // Display All Courses' Details
             case "3":
                 System.out.println("COURSE LIST:");
                 System.out.println("--------------------------------------------------------------");
@@ -270,6 +309,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
                 System.out.println("--------------------------------------------------------------");
                 break;
 
+            // Display All Information in the system
             case "4":
                 System.out.println("ENROLMENT LIST:");
                 System.out.println("-------------------------------------------");
@@ -316,6 +356,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
         }
     }
 
+    // Check the validation of Student based on ID
     public Student isStudentValid(String studentID) {
         for (Student s : studentList) {
             if (s.getId().equals(studentID)) {
@@ -326,6 +367,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
         return null;
     }
 
+    //Check validation of Course by ID
     public Course isCourseValid(String courseID) {
         for (Course c : coursesList) {
             if (c.getId().equals(courseID)) {
@@ -336,6 +378,7 @@ public class EnrolmentManager implements StudentEnrolmentManager{
         return null;
     }
 
+    // Display all Course of a Student by student ID (Update Function)
     public int displayCourseOfStudent(String studentID) {
         int index = 0;
         System.out.println("-------------------------------------------------------------------");
